@@ -1,9 +1,10 @@
 
 package com.mycompany.gamezonepro.Main;
+import com.mycompany.gamezonepro.modelo.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        
     }
 }

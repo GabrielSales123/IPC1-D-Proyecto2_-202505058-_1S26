@@ -14,7 +14,6 @@ public class Cola<T> {
 
     public void add(T dato) {
         NodoCola<T> nuevo = new NodoCola<>(dato);
-
         if (estaVacia()){
             frente = fin = nuevo;
         } else{

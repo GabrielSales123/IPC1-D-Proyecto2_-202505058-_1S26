@@ -1,13 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.gamezonepro.controlador;
 
-/**
- *
- * @author Andri
- */
+import com.mycompany.gamezonepro.modelo.*;
+
+
 public class ControlAlbum {
+    private Album album; 
+    
+    public void inicializar(){
+        album = new Album(4,6);
+        album.cargarArchivo();
+        
+    }
+    
+    public void agregarCarta(Carta carta){
+        album.agregarCarta(carta);
+    }
+    
+    public void guardarAlbum(){
+        album.guardarArchivo();
+    }
+    
+     public Album getAlbum() {
+        return album;
+    }
     
 }
