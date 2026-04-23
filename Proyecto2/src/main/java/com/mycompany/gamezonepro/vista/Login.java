@@ -1,21 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.gamezonepro.vista;
 
-/**
- *
- * @author Andri
- */
+import com.mycompany.gamezonepro.controlador.*;
+import com.mycompany.gamezonepro.modelo.*;
+
+
 public class Login extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Login.class.getName());
+        private ControlUsuarios sisu;
+        private ControlAutenticacion auth; 
 
     /**
      * Creates new form Login
      */
-    public Login() {
+    public Login(ControlUsuarios sisu) {
+        this.sisu = sisu;
+        auth = new ControlAutenticacion(sisu);
         initComponents();
     }
 
@@ -28,47 +29,206 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        logPassword = new javax.swing.JPasswordField();
+        passVisible = new javax.swing.JToggleButton();
+        btnCrearUsuario = new javax.swing.JButton();
+        titulo = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        logUsuario = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        logConfirm = new javax.swing.JToggleButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        logPassword.setForeground(new java.awt.Color(153,153,153));
+        logPassword.setText("Ingrese su contraseña");
+        logPassword.addActionListener(this::logPasswordActionPerformed);
+        logPassword.setEchoChar((char)0);
+
+        passVisible.addActionListener(this::passVisibleActionPerformed);
+
+        btnCrearUsuario.setText("Crear Usuario");
+        btnCrearUsuario.addActionListener(this::btnCrearUsuarioActionPerformed);
+
+        titulo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        titulo.setText("GameZone Pro");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel2.setText("Universidad - Intoducción a la Programacion 1");
+
+        jLabel1.setText("Usuario:");
+
+        logUsuario.setForeground(new java.awt.Color(153, 153, 153));
+        logUsuario.setText("Ingrese su nombre de usuario");
+        logUsuario.addActionListener(this::logUsuarioActionPerformed);
+
+        jLabel4.setText("Contraseña:");
+
+        logConfirm.setText("Iniciar Sesión");
+        logConfirm.addActionListener(this::logConfirmActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(logConfirm)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnCrearUsuario))
+                                    .addComponent(jLabel1)
+                                    .addComponent(logUsuario)
+                                    .addComponent(jLabel4)
+                                    .addComponent(logPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(passVisible))
+                            .addComponent(titulo))))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel3)
+                .addGap(23, 23, 23)
+                .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(logUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(passVisible, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(logPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(logConfirm)
+                    .addComponent(btnCrearUsuario))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
+
+        logPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                logPassword.setEchoChar('*');
+                if (String.valueOf(logPassword.getPassword()).equals("Ingrese su contraseña")) {
+                    passVisible.setSelected(false);
+                    passVisible.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ojocerrado.png")));
+                    logPassword.setText("");
+                    logPassword.setForeground(java.awt.Color.BLACK);
+                    if (passVisible.isSelected()){
+                        logPassword.setEchoChar((char)0);}
+                    else {logPassword.setEchoChar('*');}
+                }
+            }
+
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (logPassword.getPassword().length == 0) {
+                    logPassword.setText("Ingrese su contraseña");
+                    passVisible.setSelected(true);
+                    logPassword.setForeground(new java.awt.Color(153,153,153));
+                    logPassword.setEchoChar((char)0); // muestra el placeholder normal
+                }
+            }
+
+        });
+        logUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                if (logUsuario.getText().equals("Ingrese su nombre de usuario")) {
+                    logUsuario.setText("");
+                    logUsuario.setForeground(java.awt.Color.BLACK);
+                }
+            }
+
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (logUsuario.getText().isEmpty()) {
+                    logUsuario.setText("Ingrese su nombre de usuario");
+                    logUsuario.setForeground(new java.awt.Color(153,153,153));
+                }
+            }
+        });
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void logPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_logPasswordActionPerformed
+
+    private void passVisibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passVisibleActionPerformed
+        if (passVisible.isSelected()){
+            if(String.valueOf(logPassword.getPassword()).equals("Ingrese su contraseña")){
+                passVisible.setSelected(false);
+                passVisible.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ojocerrado.png")));
+            }
+            else{
+                passVisible.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ojoabierto_1.png")));
+                logPassword.setEchoChar((char)0);}
+        } else {
+            if(!String.valueOf(logPassword.getPassword()).equals("Ingrese su contraseña")){
+                logPassword.setEchoChar('*');
+                passVisible.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ojocerrado.png")));}
+            else {logPassword.setEchoChar((char)0);}
+        }
+    }//GEN-LAST:event_passVisibleActionPerformed
+
+    private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
+        
+    }//GEN-LAST:event_btnCrearUsuarioActionPerformed
+
+    private void logUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_logUsuarioActionPerformed
+
+    private void logConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logConfirmActionPerformed
+        String usuario = logUsuario.getText();
+        var password = new String(logPassword.getPassword());
+        Usuario u = auth.login(usuario, password);
+        if(u != null){
+            java.awt.EventQueue.invokeLater(() -> {
+                new MenuPrincipal(sisu, u).setVisible(true);
+            });
+            this.dispose();
+        }else{
+            System.out.println("Usuario o contraseña incorrectos");
+        }
+
+    }//GEN-LAST:event_logConfirmActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCrearUsuario;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    public javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    public javax.swing.JToggleButton logConfirm;
+    public javax.swing.JPasswordField logPassword;
+    public javax.swing.JTextField logUsuario;
+    private javax.swing.JToggleButton passVisible;
+    private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }
