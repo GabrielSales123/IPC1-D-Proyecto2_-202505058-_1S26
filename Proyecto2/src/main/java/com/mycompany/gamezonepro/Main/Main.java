@@ -10,6 +10,8 @@ public class Main {
         
         ControlUsuarios sisu = new ControlUsuarios(10);
         sisu.agregarUsuario(new Usuario("Wopa", "1", 10000));
+        sisu.agregarUsuario(new Usuario("2", "2", 3000));
+        sisu.agregarUsuario(new Usuario("3", "3", 999));
         java.awt.EventQueue.invokeLater(() -> {
         new Login(sisu).setVisible(true);
     });

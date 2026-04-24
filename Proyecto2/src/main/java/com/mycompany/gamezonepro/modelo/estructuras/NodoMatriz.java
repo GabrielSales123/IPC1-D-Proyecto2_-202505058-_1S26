@@ -6,6 +6,7 @@ import com.mycompany.gamezonepro.modelo.*;
 public class NodoMatriz {
     public Carta dato; 
     
+    public boolean resaltada;
     public NodoMatriz arriba; 
     public NodoMatriz abajo; 
     public NodoMatriz izquierda; 
@@ -17,5 +18,14 @@ public class NodoMatriz {
         this.abajo = null;
         this.izquierda = null; 
         this.derecha = null;
+        this.resaltada = false;
+    }
+    
+    public void setResaltada(boolean resaltada){
+        this.resaltada = resaltada;
+    }
+    
+    public boolean isResaltada() {
+        return resaltada;
     }
 }

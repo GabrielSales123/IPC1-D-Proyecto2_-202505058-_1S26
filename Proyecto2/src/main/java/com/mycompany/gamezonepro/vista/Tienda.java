@@ -1,21 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.gamezonepro.vista;
 
 import com.mycompany.gamezonepro.controlador.ControlUsuarios;
 import com.mycompany.gamezonepro.modelo.Usuario;
+import com.mycompany.gamezonepro.modelo.estructuras.MallaOrtogonal;
 
-/**
- *
- * @author Andri
- */
+
 public class Tienda extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Tienda.class.getName());
     private ControlUsuarios sisu;
-    private Usuario usuarioActual;
+    private Usuario usuarioActual; 
     /**
      * Creates new form Tienda
      */

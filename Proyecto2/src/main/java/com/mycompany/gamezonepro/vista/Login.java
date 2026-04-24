@@ -3,6 +3,7 @@ package com.mycompany.gamezonepro.vista;
 
 import com.mycompany.gamezonepro.controlador.*;
 import com.mycompany.gamezonepro.modelo.*;
+import com.mycompany.gamezonepro.modelo.estructuras.MallaOrtogonal;
 
 
 public class Login extends javax.swing.JFrame {

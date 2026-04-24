@@ -5,6 +5,7 @@
 package com.mycompany.gamezonepro.vista;
 import com.mycompany.gamezonepro.controlador.*;
 import com.mycompany.gamezonepro.modelo.Usuario;
+import com.mycompany.gamezonepro.modelo.estructuras.MallaOrtogonal;
 
 /**
  *

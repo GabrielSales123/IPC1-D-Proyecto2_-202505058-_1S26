@@ -2,7 +2,8 @@
 package com.mycompany.gamezonepro.vista;
 
 import com.mycompany.gamezonepro.controlador.ControlUsuarios;
-import com.mycompany.gamezonepro.modelo.Usuario;
+import com.mycompany.gamezonepro.modelo.*;
+import com.mycompany.gamezonepro.modelo.estructuras.MallaOrtogonal;
 
 public class Informacion extends javax.swing.JFrame {
     
