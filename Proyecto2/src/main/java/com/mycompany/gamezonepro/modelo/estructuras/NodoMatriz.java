@@ -21,6 +21,14 @@ public class NodoMatriz {
         this.resaltada = false;
     }
     
+    public Carta getDato(){
+        return dato; 
+    }
+    
+    public void setDato(Carta dato){
+        this.dato = dato; 
+    }
+    
     public void setResaltada(boolean resaltada){
         this.resaltada = resaltada;
     }

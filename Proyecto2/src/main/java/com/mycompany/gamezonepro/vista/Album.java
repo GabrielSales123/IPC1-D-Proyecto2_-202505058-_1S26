@@ -6,6 +6,7 @@ import com.mycompany.gamezonepro.modelo.Carta;
 import com.mycompany.gamezonepro.modelo.Usuario;
 import com.mycompany.gamezonepro.modelo.estructuras.*;
 import java.awt.*;
+import java.util.*;
 import javax.swing.*;
 
 
@@ -14,6 +15,9 @@ public class Album extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Album.class.getName());
     private ControlUsuarios sisu;
     private Usuario usuarioActual; 
+    private NodoMatriz seleccion1 = null; 
+    private NodoMatriz seleccion2 = null; 
+    private boolean intercambio = false;
     /**
      * Creates new form Album
      */
@@ -79,10 +83,12 @@ public class Album extends javax.swing.JFrame {
                         JLabel error = new JLabel("Sin img", SwingConstants.CENTER);
                         celda.add(error, BorderLayout.CENTER);
                     }
+                    final NodoMatriz nodoActual = actual;
                     celda.addMouseListener(new java.awt.event.MouseAdapter() {
                     @Override
                     public void mouseClicked(java.awt.event.MouseEvent e) {
                     mostrarCarta(carta);
+                    manejoClick(nodoActual);
                     }
                     });
                 }
@@ -158,6 +164,34 @@ public class Album extends javax.swing.JFrame {
         }
         renderizarAlbum();
     }
+    
+    private void manejoClick(NodoMatriz nodo){
+        if(nodo.getDato() == null){
+            return;
+        }
+        if(intercambio == false){
+            seleccion1 = nodo; 
+            mostrarCarta(nodo.getDato());
+            nodo.setResaltada(true);
+            renderizarAlbum();
+            
+        }
+        else{
+            seleccion2 = nodo; 
+            if(seleccion1 == seleccion2){
+                return;   
+            }
+            usuarioActual.getAlbum().getMalla().intercambiar(seleccion1, seleccion2);
+            seleccion1.setResaltada(false);
+            seleccion2.setResaltada(false);
+            seleccion1 = null;
+            seleccion2 = null;
+            intercambio = false;
+            renderizarAlbum();
+            
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -175,8 +209,6 @@ public class Album extends javax.swing.JFrame {
         busquedaTxt = new javax.swing.JTextField();
         tipoBox = new javax.swing.JComboBox<>();
         rarezaBox = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         BuscarBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -188,7 +220,7 @@ public class Album extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        interTxt = new javax.swing.JButton();
         atkBar = new javax.swing.JProgressBar();
         defBar = new javax.swing.JProgressBar();
         psBar = new javax.swing.JProgressBar();
@@ -241,10 +273,6 @@ public class Album extends javax.swing.JFrame {
 
         rarezaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setText("jButton1");
-
-        jButton2.setText("jButton2");
-
         jLabel3.setText("Buscar:");
 
         BuscarBtn.setText("Buscar");
@@ -265,11 +293,7 @@ public class Album extends javax.swing.JFrame {
                 .addComponent(rarezaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(BuscarBtn)
-                .addGap(86, 86, 86)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addContainerGap(215, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,8 +303,6 @@ public class Album extends javax.swing.JFrame {
                     .addComponent(busquedaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tipoBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rarezaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
                     .addComponent(jLabel3)
                     .addComponent(BuscarBtn))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -327,8 +349,8 @@ public class Album extends javax.swing.JFrame {
 
         jLabel10.setText("Posicion");
 
-        jButton3.setText("Intercambiar");
-        jButton3.addActionListener(this::jButton3ActionPerformed);
+        interTxt.setText("Intercambiar");
+        interTxt.addActionListener(this::interTxtActionPerformed);
 
         atkBar.setMaximum(200);
         atkBar.setMaximumSize(new java.awt.Dimension(200, 16));
@@ -371,7 +393,7 @@ public class Album extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(RarezaTxt)
-                    .addComponent(jButton3)
+                    .addComponent(interTxt)
                     .addComponent(jLabel10)
                     .addComponent(TipoTxt)
                     .addComponent(CodigoTxt)
@@ -441,7 +463,7 @@ public class Album extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(interTxt)
                 .addGap(20, 20, 20))
         );
 
@@ -470,7 +492,7 @@ public class Album extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(scrollAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -496,9 +518,14 @@ public class Album extends javax.swing.JFrame {
     });
     }//GEN-LAST:event_ReturnBtnMouseClicked
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void interTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_interTxtActionPerformed
+        if(seleccion1 != null){
+            intercambio = true;
+            JOptionPane.showMessageDialog(this, "Seleccione la segunda carta");
+        } else {
+            JOptionPane.showMessageDialog(this, "NO se ha seleccionado carta");
+        }
+    }//GEN-LAST:event_interTxtActionPerformed
 
     private void busquedaTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busquedaTxtActionPerformed
         
@@ -535,9 +562,7 @@ public class Album extends javax.swing.JFrame {
     private javax.swing.JProgressBar defBar;
     private javax.swing.JLabel defValue;
     private javax.swing.JLabel imgCarta;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton interTxt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

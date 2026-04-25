@@ -1,0 +1,25 @@
+/// Wopa|7000|1
+1,Wopa,Agua,Legendaria,200,200,200,/imagenes/Webo.png
+2,Poliwaj,Agua,Comun,150,100,50,/imagenes/poli.png
+25,Lapras,Agua,Rara,160,150,130,imagen
+24,Arcanine,Fuego,Rara,190,130,120,imagen
+26,Sceptile,Planta,Rara,170,120,160,imagen
+27,Electivire,Electrico,Rara,180,110,140,imagen
+28,Alakazam,Psiquico,Rara,180,90,170,imagen
+29,Snorlax,Normal,Rara,150,180,100,imagen
+30,Umbreon,Oscuro,Rara,140,170,120,imagen
+31,Metagross,Acero,Rara,190,180,90,imagen
+
+/// 2|5000|2
+1,Wopa,Agua,Legendaria,200,200,200,/imagenes/Webo.png
+2,Poliwaj,Agua,Comun,150,100,50,/imagenes/poli.png
+24,Arcanine,Fuego,Rara,190,130,120,imagen
+25,Lapras,Agua,Rara,160,150,130,imagen
+26,Sceptile,Planta,Rara,170,120,160,imagen
+
+/// 3|150|3
+27,Electivire,Electrico,Rara,180,110,140,imagen
+28,Alakazam,Psiquico,Rara,180,90,170,imagen
+29,Snorlax,Normal,Rara,150,180,100,imagen
+30,Umbreon,Oscuro,Rara,140,170,120,imagen
+

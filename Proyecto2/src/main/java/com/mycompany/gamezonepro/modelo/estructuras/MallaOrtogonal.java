@@ -85,4 +85,11 @@ public class MallaOrtogonal {
         }
         return actual;
     }
+    
+    public void intercambiar(NodoMatriz a, NodoMatriz b) {
+        Carta temp = a.getDato();
+        a.setDato(b.getDato());
+        b.setDato(temp);
+    }
 }
+

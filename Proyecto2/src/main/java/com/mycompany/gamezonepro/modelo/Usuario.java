@@ -24,8 +24,16 @@ public class Usuario {
         return pass; 
     }
     
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+    
     public int getXp(){
         return xp; 
+    }
+    
+    public void setXp(int xp){
+        this.xp = xp; 
     }
     
     public void sumarXp(int cantidad){

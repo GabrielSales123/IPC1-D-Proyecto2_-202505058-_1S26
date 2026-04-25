@@ -7,13 +7,20 @@ import com.mycompany.gamezonepro.vista.*;
 public class Main {
 
     public static void main(String[] args) {
-        
         ControlUsuarios sisu = new ControlUsuarios(10);
-        sisu.agregarUsuario(new Usuario("Wopa", "1", 10000));
-        sisu.agregarUsuario(new Usuario("2", "2", 3000));
-        sisu.agregarUsuario(new Usuario("3", "3", 999));
+        sisu.cargarUsuariosInicial();
+        for (int i=0; i<sisu.getTotalUsuarios(); i++) {
+        Usuario u = sisu.getUsuarios()[i];
+            u.getAlbum().cargarArchivo(u.getId());
+        }
+       
+         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            sisu.guardarTodos();
+            
+        }));
         java.awt.EventQueue.invokeLater(() -> {
         new Login(sisu).setVisible(true);
     });
+        
     }
 }
