@@ -1,12 +1,13 @@
 
 package com.mycompany.gamezonepro.modelo;
 
-import com.mycompany.gamezonepro.modelo.estructuras.MallaOrtogonal;
+import com.mycompany.gamezonepro.modelo.estructuras.*;
 
 public class Usuario {
     private String Id;
     private String pass;
     private int xp; 
+    private ListaSimple<Logro> logros;
     private Album album;
     
     public Usuario(String Id,String pass,  int xp){

@@ -1,11 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.gamezonepro.vista;
 import com.mycompany.gamezonepro.controlador.*;
 import com.mycompany.gamezonepro.modelo.Usuario;
 import com.mycompany.gamezonepro.modelo.estructuras.MallaOrtogonal;
+import java.awt.*;
+import javax.swing.*;
 
 /**
  *
@@ -16,15 +15,68 @@ public class Recompensas extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Recompensas.class.getName());
     private ControlUsuarios sisu;
     private Usuario usuarioActual;
-    /**
-     * Creates new form Recompensas
-     */
+    private Usuario[] copia; 
+
     public Recompensas(ControlUsuarios sisu, Usuario usuarioActual) {
         this.usuarioActual = usuarioActual;
         this.sisu = sisu;
         initComponents();
+        copiarUsuarios(sisu);
+        ordenarPorXP(copia, sisu.getTotalUsuarios());
+        JPanel panelUsuarios = new JPanel();
+        panelUsuarios.setLayout(new BoxLayout(panelUsuarios, BoxLayout.Y_AXIS));
+        scrollUsuarios.setViewportView(panelUsuarios);
+        mostrarUsuarios(copia, sisu.getTotalUsuarios(), panelUsuarios);
+    }
+    
+    public void mostrarUsuarios(Usuario[] lista, int total, JPanel panelUsuarios) {
+
+    panelUsuarios.removeAll();
+    panelUsuarios.setLayout(new BoxLayout(panelUsuarios, BoxLayout.Y_AXIS));
+
+    for (int i = 0; i < total; i++) {
+
+        Usuario u = lista[i];
+
+        JPanel fila = new JPanel(new BorderLayout());
+        fila.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        JLabel lblNombre = new JLabel((i + 1) + ". Usuario: " + u.getId());
+        JLabel lblXP = new JLabel("XP: " + u.getXp());
+
+        fila.add(lblNombre, BorderLayout.WEST);
+        fila.add(lblXP, BorderLayout.EAST);
+
+        panelUsuarios.add(fila);
     }
 
+    panelUsuarios.revalidate();
+    panelUsuarios.repaint();
+}
+    
+    public void copiarUsuarios(ControlUsuarios control) {
+        Usuario[] original = control.getUsuarios();
+        int n = control.getTotalUsuarios();
+        Usuario[] copia = new Usuario[n];
+        for (int i = 0; i < n; i++) {
+            copia[i]=original[i];
+        }
+        this.copia = copia; 
+    }
+    
+    public void ordenarPorXP(Usuario[] lista, int n) {
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (lista[j].getXp() < lista[j + 1].getXp()) {
+                    Usuario aux = lista[j];
+                    lista[j] = lista[j + 1];
+                    lista[j + 1] = aux;
+                }
+            }
+        }
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,13 +86,18 @@ public class Recompensas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         ReturnBtn = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        scrollUsuarios = new javax.swing.JScrollPane();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Recompensas");
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         ReturnBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ReturnBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -68,25 +125,66 @@ public class Recompensas extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel1.setText("Recompensas");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ReturnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(235, 235, 235)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ReturnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        scrollUsuarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel3.setText("Logros");
+
+        jLabel4.setText("Clasificacion");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ReturnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(113, 113, 113)
-                .addComponent(jLabel1)
-                .addContainerGap(181, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(scrollUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ReturnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(255, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                    .addComponent(scrollUsuarios))
+                .addGap(0, 69, Short.MAX_VALUE))
         );
 
         pack();
@@ -110,5 +208,10 @@ public class Recompensas extends javax.swing.JFrame {
     private javax.swing.JPanel ReturnBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane scrollUsuarios;
     // End of variables declaration//GEN-END:variables
 }

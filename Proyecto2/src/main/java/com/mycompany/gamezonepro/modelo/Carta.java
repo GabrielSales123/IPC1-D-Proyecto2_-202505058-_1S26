@@ -10,6 +10,8 @@ public class Carta {
     private int def;
     private int ps;
     private String imagen; 
+    private double precio; 
+    private boolean disponibleTienda; 
     
     public Carta(String codigo, String nombre, String tipo, String rareza, 
             int ataque, int defensa, int ps, String imagen){
@@ -21,6 +23,22 @@ public class Carta {
         this.def = defensa; 
         this.ps = ps;
         this.imagen = imagen;
+        this.precio = 0; 
+        this.disponibleTienda = false; 
+    }
+    
+    public Carta(String codigo, String nombre, String tipo, String rareza, 
+            int ataque, int defensa, int ps, String imagen, double precio, boolean disponibleTienda){
+        this.codigo = codigo; 
+        this.nombre = nombre;
+        this.tipo = tipo; 
+        this.rareza = rareza; 
+        this.atq = ataque;
+        this.def = defensa; 
+        this.ps = ps;
+        this.imagen = imagen;
+        this.precio = precio; 
+        this.disponibleTienda = disponibleTienda; 
     }
     
     public String getCodigo(){
@@ -47,4 +65,9 @@ public class Carta {
     public String getImagen(){
         return imagen; 
     }
+    
+    public double getPrecio(){
+        return precio; 
+    }
+    
 }

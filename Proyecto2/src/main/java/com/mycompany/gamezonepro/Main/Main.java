@@ -2,6 +2,7 @@
 package com.mycompany.gamezonepro.Main;
 import com.mycompany.gamezonepro.controlador.*;
 import com.mycompany.gamezonepro.modelo.*;
+import com.mycompany.gamezonepro.modelo.estructuras.MallaOrtogonal;
 import com.mycompany.gamezonepro.vista.*;
 
 public class Main {

@@ -16,10 +16,14 @@
 24,Arcanine,Fuego,Rara,190,130,120,imagen
 25,Lapras,Agua,Rara,160,150,130,imagen
 26,Sceptile,Planta,Rara,170,120,160,imagen
+63,Pikachu,Electrico,Rara,150,100,120,/imagenes/pikachu.png
 
 /// 3|150|3
 27,Electivire,Electrico,Rara,180,110,140,imagen
 28,Alakazam,Psiquico,Rara,180,90,170,imagen
 29,Snorlax,Normal,Rara,150,180,100,imagen
 30,Umbreon,Oscuro,Rara,140,170,120,imagen
+60,Charizard,Fuego,Legendaria,260,200,220,/imagenes/charizard.png
+62,Venusaur,Planta,Ultra Rara,220,200,230,/imagenes/venusaur.png
+63,Pikachu,Electrico,Rara,150,100,120,/imagenes/pikachu.png
 
