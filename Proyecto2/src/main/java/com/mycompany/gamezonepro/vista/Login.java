@@ -204,6 +204,7 @@ public class Login extends javax.swing.JFrame {
         Usuario u = auth.login(usuario, password);
         if(u != null){
             java.awt.EventQueue.invokeLater(() -> {
+                u.sumarXp(10);
                 new MenuPrincipal(sisu, u).setVisible(true);
             });
             this.dispose();

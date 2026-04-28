@@ -36,4 +36,20 @@ public class NodoMatriz {
     public boolean isResaltada() {
         return resaltada;
     }
+    
+    public NodoMatriz getArriba() {
+        return arriba;
+    }
+
+    public NodoMatriz getAbajo() {
+        return abajo;
+    }
+    
+    public NodoMatriz getIzquierda() {
+        return izquierda;
+    }
+
+    public NodoMatriz getDerecha() {
+        return derecha;
+    }
 }

@@ -1,4 +1,4 @@
-/// Wopa|7000|1
+/// Wopa|7640|1
 1,Wopa,Agua,Legendaria,200,200,200,/imagenes/Webo.png
 2,Poliwaj,Agua,Comun,150,100,50,/imagenes/poli.png
 25,Lapras,Agua,Rara,160,150,130,imagen
@@ -9,14 +9,20 @@
 29,Snorlax,Normal,Rara,150,180,100,imagen
 30,Umbreon,Oscuro,Rara,140,170,120,imagen
 31,Metagross,Acero,Rara,190,180,90,imagen
+64,Gengar,Fantasma,Rara,210,150,180,/imagenes/gengar.png
+60,Charizard,Fuego,Legendaria,260,200,220,/imagenes/charizard.png
 
-/// 2|5000|2
+/// 2|6440|2
 1,Wopa,Agua,Legendaria,200,200,200,/imagenes/Webo.png
 2,Poliwaj,Agua,Comun,150,100,50,/imagenes/poli.png
 24,Arcanine,Fuego,Rara,190,130,120,imagen
 25,Lapras,Agua,Rara,160,150,130,imagen
 26,Sceptile,Planta,Rara,170,120,160,imagen
 63,Pikachu,Electrico,Rara,150,100,120,/imagenes/pikachu.png
+64,Gengar,Fantasma,Rara,210,150,180,/imagenes/gengar.png
+60,Charizard,Fuego,Legendaria,260,200,220,/imagenes/charizard.png
+62,Venusaur,Planta,Ultra Rara,220,200,230,/imagenes/venusaur.png
+61,Blastoise,Agua,Ultra Rara,230,210,240,/imagenes/blastoise.png
 
 /// 3|150|3
 27,Electivire,Electrico,Rara,180,110,140,imagen

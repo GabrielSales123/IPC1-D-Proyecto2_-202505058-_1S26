@@ -91,5 +91,21 @@ public class MallaOrtogonal {
         a.setDato(b.getDato());
         b.setDato(temp);
     }
+    
+    public int contarCartas(NodoMatriz inicio) {
+    int contador = 0;
+    NodoMatriz fila = inicio;
+    while (fila != null) {
+        NodoMatriz actual = fila;
+        while (actual != null) {
+            if (actual.getDato() != null) {
+                contador++;
+            }
+            actual = actual.getDerecha();
+        }
+        fila = fila.getAbajo();
+        }
+     return contador;
+    }
 }
 

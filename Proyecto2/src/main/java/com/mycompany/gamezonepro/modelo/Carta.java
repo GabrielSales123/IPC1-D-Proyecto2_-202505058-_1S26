@@ -12,6 +12,7 @@ public class Carta {
     private String imagen; 
     private double precio; 
     private boolean disponibleTienda; 
+    private int stock; 
     
     public Carta(String codigo, String nombre, String tipo, String rareza, 
             int ataque, int defensa, int ps, String imagen){
@@ -28,7 +29,7 @@ public class Carta {
     }
     
     public Carta(String codigo, String nombre, String tipo, String rareza, 
-            int ataque, int defensa, int ps, String imagen, double precio, boolean disponibleTienda){
+            int ataque, int defensa, int ps, String imagen, double precio, boolean disponibleTienda, int stock){
         this.codigo = codigo; 
         this.nombre = nombre;
         this.tipo = tipo; 
@@ -38,6 +39,7 @@ public class Carta {
         this.ps = ps;
         this.imagen = imagen;
         this.precio = precio; 
+        this.stock = stock; 
         this.disponibleTienda = disponibleTienda; 
     }
     
@@ -70,4 +72,11 @@ public class Carta {
         return precio; 
     }
     
+    public int getStock(){
+        return stock; 
+    }
+    
+    public void quitarStock(){
+        stock = stock-1;
+    }
 }

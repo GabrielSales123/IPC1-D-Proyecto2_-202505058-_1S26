@@ -10,11 +10,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuPrincipal.class.getName());
     private ControlUsuarios sisu;
     private Usuario usuarioActual;
+    private ControlRecompensas sisr;
    
    
     public MenuPrincipal(ControlUsuarios sisu, Usuario usuarioActual) {
         this.sisu = sisu;
         this.usuarioActual = usuarioActual; 
+        sisr = new ControlRecompensas(usuarioActual);
+        sisr.gestionLogros(usuarioActual.getCompras(), usuarioActual.getAlbum().getMalla().contarCartas(usuarioActual.getAlbum().getMalla().getNodo(0, 0)), 
+                usuarioActual.getXp(), usuarioActual.getGastos(), null);
         initComponents();
         inicializar();
         nivelBarra();
@@ -426,7 +430,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void TiendaBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TiendaBtnMouseClicked
        java.awt.EventQueue.invokeLater(() -> {
         this.dispose();
-        new Tienda(sisu, usuarioActual).setVisible(true);
+        new Tienda(sisu, usuarioActual, sisr).setVisible(true);
     });
     }//GEN-LAST:event_TiendaBtnMouseClicked
 

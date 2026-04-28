@@ -13,6 +13,7 @@ public class Tienda extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Tienda.class.getName());
     private ControlUsuarios sisu;
+    private ControlRecompensas sisr; 
     private Usuario usuarioActual; 
     private MallaOrtogonal tienda; 
     private ControlTienda sisa; 
@@ -22,9 +23,10 @@ public class Tienda extends javax.swing.JFrame {
     /**
      * Creates new form Tienda
      */
-    public Tienda(ControlUsuarios sisu, Usuario usuarioActual) {
+    public Tienda(ControlUsuarios sisu, Usuario usuarioActual, ControlRecompensas sisr) {
         ControlTienda sisa = new ControlTienda(4,6);
         this.sisa = sisa;
+        this.sisr = sisr; 
         this.usuarioActual = usuarioActual;
         this.sisu = sisu;
         sisa.stock();
@@ -653,10 +655,19 @@ public class Tienda extends javax.swing.JFrame {
         Carta aux;
             for(int i = 0; i<sisa.getContador(); i++){
                 aux = sisa.buscarCarrito(i);
+                if (aux == null) continue;
+                usuarioActual.getHistorialCompras().agregar(aux);
                 usuarioActual.sumarXp(50);
                 if (aux.getRareza() == "Legendaria"){
                     usuarioActual.sumarXp(200);
+                    sisr.gestionLogros(usuarioActual.getCompras(), usuarioActual.getAlbum().getMalla().contarCartas(usuarioActual.getAlbum().getMalla().getNodo(0, 0)), 
+                    usuarioActual.getXp(), usuarioActual.getGastos(), aux);
+                    
                 }
+                usuarioActual.sumarCompra();
+                usuarioActual.sumaGasto(aux.getPrecio());
+                sisr.gestionLogros(usuarioActual.getCompras(), usuarioActual.getAlbum().getMalla().contarCartas(usuarioActual.getAlbum().getMalla().getNodo(0, 0)), 
+                usuarioActual.getXp(), usuarioActual.getGastos(), null);
                 usuarioActual.getAlbum().agregarCarta(aux);
                 sisa.eliminarCarrito(i);
             }
