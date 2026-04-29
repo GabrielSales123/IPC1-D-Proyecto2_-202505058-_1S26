@@ -181,5 +181,91 @@ I2 --> I3[Cargar imagen]
 ## Tienda
 
 ```mermaid
+flowchart TD
 
+A[Inicio Tienda] --> B[Constructor Tienda]
+B --> B1[Crear ControlTienda]
+B1 --> B2[Stock inicial]
+B2 --> C[initComponents]
+C --> D[modoCompra false]
+D --> E[inicializarObjetos]
+E --> F[inicializarTienda]
+F --> G[renderizarTienda]
+
+%% Inicializar tienda
+F --> F1[Crear panel 4x6]
+F1 --> F2[Crear 24 celdas vacias]
+F2 --> F3[Mostrar panel]
+
+%% Renderizar tienda
+G --> G1[Limpiar panel]
+G1 --> G2[Recorrer matriz tienda]
+G2 --> G3{Nodo existe}
+G3 -->|No| G4[Fin fila]
+G3 -->|Si| G5[Crear celda UI]
+
+G5 --> G6{Tiene carta}
+G6 -->|No| G7[Mostrar Vacia]
+G6 -->|Si| G8[Cargar imagen y datos]
+
+G7 --> G9[Agregar celda]
+G8 --> G10[Agregar evento click]
+G10 --> G9
+G9 --> G2
+
+%% Click en carta
+H[Manejo click] --> H1{Dato null}
+H1 -->|Si| H2[Salir]
+H1 -->|No| H3{Modo intercambio}
+
+H3 -->|No| H4[Seleccion 1]
+H4 --> H5[Resaltar]
+H5 --> G
+
+H3 -->|Si| H6[Seleccion 2]
+H6 --> H7{Es misma carta}
+H7 -->|Si| H2
+H7 -->|No| H8[Intercambiar]
+H8 --> H9[Limpiar seleccion]
+H9 --> G
+
+%% Buscar cartas
+I[Buscar cartas] --> I1[Recorrer matriz]
+I1 --> I2{Nodo tiene carta}
+I2 -->|No| I3[Quitar resaltado]
+I2 -->|Si| I4[Aplicar filtros]
+
+I4 --> I5{Coincide}
+I5 -->|Si| I6[Resaltar]
+I5 -->|No| I3
+
+I6 --> I1
+I3 --> I1
+I1 --> I7[Renderizar tienda]
+
+%% Mostrar carta
+J[Mostrar carta] --> J1[Asignar datos]
+J1 --> J2[Actualizar barras]
+J2 --> J3[Cargar imagen]
+J3 --> J4[Mostrar precio]
+
+%% Modo compra
+K[Modo compra] --> K1{Estado true}
+K1 -->|Si| K2[Mostrar carrito]
+K2 --> K3[Recorrer carrito]
+K3 --> K4[Calcular total]
+K4 --> K5[Mostrar resumen]
+
+K1 -->|No| K6[Ocultar carrito]
+K6 --> K7[Mostrar vista normal]
+
+%% Confirmar compra
+L[Confirmar compra] --> L1[Recorrer carrito]
+L1 --> L2[Agregar historial]
+L2 --> L3[Sumar XP]
+L3 --> L4[Actualizar usuario]
+L4 --> L5[Agregar al album]
+L5 --> L6[Eliminar carrito]
+L6 --> L7[Reset contador]
+L7 --> L8[Mensaje exito]
 ```
