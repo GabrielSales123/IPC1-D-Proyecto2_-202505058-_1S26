@@ -29,11 +29,13 @@ com\mycompany\gamezonepro\vista\MenuPrincipal$1.class
 com\mycompany\gamezonepro\controlador\ControlAutenticacion.class
 com\mycompany\gamezonepro\vista\MenuPrincipal$5.class
 com\mycompany\gamezonepro\vista\Tienda.class
+com\mycompany\gamezonepro\modelo\Torneo.class
 com\mycompany\gamezonepro\controlador\ControlTienda.class
 com\mycompany\gamezonepro\vista\Login.class
 com\mycompany\gamezonepro\modelo\Carta.class
 com\mycompany\gamezonepro\vista\Tienda$1.class
 com\mycompany\gamezonepro\vista\MenuPrincipal.class
+com\mycompany\gamezonepro\controlador\Taquilla.class
 com\mycompany\gamezonepro\modelo\estructuras\ListaSimple.class
 com\mycompany\gamezonepro\vista\MenuPrincipal$2.class
 com\mycompany\gamezonepro\vista\Recompensas$1.class

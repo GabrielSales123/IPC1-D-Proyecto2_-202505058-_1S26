@@ -12,7 +12,7 @@ public class Cola<T> {
         tamanio = 0;
     }
 
-    public void add(T dato) {
+    public synchronized void encolar(T dato) {
         NodoCola<T> nuevo = new NodoCola<>(dato);
         if (estaVacia()){
             frente = fin = nuevo;
@@ -23,7 +23,7 @@ public class Cola<T> {
         tamanio++;
     }
 
-    public synchronized T poll(){
+    public synchronized T desencolar(){
         if (estaVacia()) return null;
         T dato = frente.dato;
         frente = frente.siguiente;
@@ -44,5 +44,9 @@ public class Cola<T> {
 
     public int tamanio(){
         return tamanio;
+    }
+    
+    public NodoCola<T> getFrenteNodo() {
+        return frente;
     }
 }

@@ -32,7 +32,6 @@ public class Login extends javax.swing.JFrame {
 
         logPassword = new javax.swing.JPasswordField();
         passVisible = new javax.swing.JToggleButton();
-        btnCrearUsuario = new javax.swing.JButton();
         titulo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -49,9 +48,6 @@ public class Login extends javax.swing.JFrame {
         logPassword.setEchoChar((char)0);
 
         passVisible.addActionListener(this::passVisibleActionPerformed);
-
-        btnCrearUsuario.setText("Crear Usuario");
-        btnCrearUsuario.addActionListener(this::btnCrearUsuarioActionPerformed);
 
         titulo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         titulo.setText("GameZone Pro");
@@ -87,10 +83,7 @@ public class Login extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(logConfirm)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnCrearUsuario))
+                                    .addComponent(logConfirm)
                                     .addComponent(jLabel1)
                                     .addComponent(logUsuario)
                                     .addComponent(jLabel4)
@@ -120,9 +113,7 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(passVisible, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(logPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(logConfirm)
-                    .addComponent(btnCrearUsuario))
+                .addComponent(logConfirm)
                 .addContainerGap(63, Short.MAX_VALUE))
         );
 
@@ -190,10 +181,6 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_passVisibleActionPerformed
 
-    private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
-        
-    }//GEN-LAST:event_btnCrearUsuarioActionPerformed
-
     private void logUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_logUsuarioActionPerformed
@@ -222,7 +209,6 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCrearUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     public javax.swing.JLabel jLabel3;

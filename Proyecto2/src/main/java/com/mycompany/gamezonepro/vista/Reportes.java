@@ -2,11 +2,14 @@
 package com.mycompany.gamezonepro.vista;
 
 import com.mycompany.gamezonepro.controlador.ControlTienda;
+import com.mycompany.gamezonepro.controlador.ControlTorneos;
 import com.mycompany.gamezonepro.controlador.ControlUsuarios;
 import com.mycompany.gamezonepro.modelo.Carta;
 import com.mycompany.gamezonepro.modelo.Usuario;
+import com.mycompany.gamezonepro.modelo.estructuras.Cola;
 import com.mycompany.gamezonepro.modelo.estructuras.ListaSimple;
 import com.mycompany.gamezonepro.modelo.estructuras.MallaOrtogonal;
+import com.mycompany.gamezonepro.modelo.estructuras.NodoMatriz;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,6 +23,8 @@ public class Reportes extends javax.swing.JFrame {
     private ControlUsuarios sisu;
     private ControlTienda sisr; 
     private Usuario usuarioActual;
+    private ControlTorneos sisto;
+    private Cola<String> cola; 
     String fecha = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss").format(new Date());
     String nombreArchivo = fecha + "_Inventario.html";
     /**
@@ -29,26 +34,23 @@ public class Reportes extends javax.swing.JFrame {
         this.sisr = new ControlTienda(4,6);
         this.usuarioActual = usuarioActual;
         this.sisu = sisu;
+        this.cola = new Cola<>();
+        this.sisto = new ControlTorneos(this.cola); 
+        this.sisto.cargarTorneos();
         initComponents();
     }
 
     
     public void generarReporteInventario(ListaSimple<Carta> catalogo) {
-
-    try {
+        try {
         String fecha = new java.text.SimpleDateFormat("dd_MM_yyyy_HH_mm_ss")
                         .format(new java.util.Date());
-
         String nombreArchivo = fecha + "_Inventario.html";
-
         FileWriter writer = new FileWriter(nombreArchivo);
-
         writer.write("<html>");
         writer.write("<head><title>Inventario de Tienda</title></head>");
         writer.write("<body>");
-
         writer.write("<h1>Reporte de Inventario</h1>");
-
         writer.write("<table border='1'>");
         writer.write("<tr>");
         writer.write("<th>Nombre</th>");
@@ -56,11 +58,8 @@ public class Reportes extends javax.swing.JFrame {
         writer.write("<th>Precio</th>");
         writer.write("<th>Plataforma</th>");
         writer.write("</tr>");
-
         for (int i = 0; i < catalogo.tamanio(); i++) {
-
             Carta c = catalogo.buscar(i);
-
             writer.write("<tr>");
             writer.write("<td>" + c.getNombre() + "</td>");
             writer.write("<td>" + c.getStock() + "</td>");
@@ -68,39 +67,36 @@ public class Reportes extends javax.swing.JFrame {
             writer.write("<td>" + c.getTipo() + "</td>");
             writer.write("</tr>");
         }
-
         writer.write("</table>");
         writer.write("</body>");
         writer.write("</html>");
-
         writer.close();
         Desktop.getDesktop().browse(new File(nombreArchivo).toURI());
 
-    } catch (IOException e) {
-        e.printStackTrace();
+        }   catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-}
 
 
-public void generarReporteVentas(Usuario usuario) {
-
-    try {
-        String fecha = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss").format(new Date());
-        String nombreArchivo = fecha + "_Ventas.html";
-        FileWriter writer = new FileWriter(nombreArchivo);
-        writer.write("<html>");
-        writer.write("<head><title>Reporte de Ventas</title></head>");
-        writer.write("<body>");
-        writer.write("<h1>Reporte de Ventas</h1>");
-        writer.write("<h2>Usuario: " + usuario.getId() + "</h2>");
-        writer.write("<table border='1'>");
-        writer.write("<tr>");
-        writer.write("<th>#</th>");
-        writer.write("<th>Nombre</th>");
-        writer.write("<th>Tipo</th>");
-        writer.write("<th>Rareza</th>");
-        writer.write("<th>Precio</th>");
-        writer.write("</tr>");
+    public void generarReporteVentas(Usuario usuario) {
+        try {
+            String fecha = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss").format(new Date());
+            String nombreArchivo = fecha + "_Ventas.html";
+            FileWriter writer = new FileWriter(nombreArchivo);
+            writer.write("<html>");
+            writer.write("<head><title>Reporte de Ventas</title></head>");
+            writer.write("<body>");
+            writer.write("<h1>Reporte de Ventas</h1>");
+            writer.write("<h2>Usuario: " + usuario.getId() + "</h2>");
+            writer.write("<table border='1'>");
+            writer.write("<tr>");
+            writer.write("<th>#</th>");
+            writer.write("<th>Nombre</th>");
+            writer.write("<th>Tipo</th>");
+            writer.write("<th>Rareza</th>");
+            writer.write("<th>Precio</th>");
+            writer.write("</tr>");
         double total = 0;
         for (int i = 0; i < usuario.getHistorialCompras().tamanio(); i++) {
             Carta c = usuario.getHistorialCompras().buscar(i);
@@ -121,11 +117,109 @@ public void generarReporteVentas(Usuario usuario) {
         writer.close();
         File archivo = new File(nombreArchivo);
         Desktop.getDesktop().browse(archivo.toURI());
-
-    } catch (IOException e) {
-        e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-}
+
+    public void generarReporteTorneos(ControlTorneos sisto) {
+            try {
+            String fecha = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss")
+                .format(new Date());
+        String nombreArchivo = fecha + "_Torneos.html";
+        FileWriter writer = new FileWriter(nombreArchivo);
+        writer.write("<html>");
+        writer.write("<head><title>Reporte Torneos</title></head>");
+        writer.write("<body>");
+        writer.write("<h1>Lista de Torneos</h1>");
+        writer.write("<table border='1'>");
+        writer.write("<tr>");
+        writer.write("<th>Nombre Torneo</th>");
+        writer.write("<th>Juego</th>");
+        writer.write("<th>Fecha</th>");
+        writer.write("<th>Hora</th>");
+        writer.write("</tr>");
+        for (int i = 0; i < sisto.getTotalTorneos(); i++) {
+            var t = sisto.getTorneos()[i];
+            writer.write("<tr>");
+            writer.write("<td>" + t.getNombre() + "</td>");
+            writer.write("<td>" + t.getJuego() + "</td>");
+            writer.write("<td>" + t.getFecha() + "</td>");
+            writer.write("<td>" + t.getHora() + "</td>");
+            StringBuilder tickets = new StringBuilder();
+            var cola = t.getCola();
+            var nodo = cola.getFrenteNodo();
+            while (nodo != null) {
+                tickets.append(nodo.dato).append(" ");
+                nodo = nodo.siguiente;
+            }
+                writer.write("<td>" + tickets.toString() + "</td>");
+                writer.write("</tr>");
+            }
+            writer.write("</table>");
+            writer.write("</body>");
+            writer.write("</html>");
+            writer.close();
+            Desktop.getDesktop().browse(new File(nombreArchivo).toURI());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void generarReporteAlbum(Usuario usuarioActual) {
+        try {
+            String fecha = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss")
+                .format(new Date());
+        String nombreArchivo = fecha + "_Album.html";
+        FileWriter writer = new FileWriter(nombreArchivo);
+        MallaOrtogonal album = usuarioActual.getAlbum().getMalla();
+        writer.write("<html>");
+        writer.write("<head>");
+        writer.write("<title>Reporte del Álbum</title>");
+        writer.write("<style>");
+        writer.write("table { border-collapse: collapse; }");
+        writer.write("td { width: 140px; height: 120px; text-align: center; border: 1px solid black; }");
+        writer.write(".vacia { background-color: #cfcfcf; }");
+        writer.write(".legendaria { background-color: gold; }");
+        writer.write(".comun { background-color: white; }");
+        writer.write("</style>");
+        writer.write("</head>");
+        writer.write("<body>");
+        writer.write("<h1>Álbum del Usuario: " + usuarioActual.getId() + "</h1>");
+        writer.write("<table>");
+        NodoMatriz fila = album.getNodo(0, 0);
+        while (fila != null) {
+            writer.write("<tr>");
+            NodoMatriz actual = fila;
+            while (actual != null) {
+                Carta c = actual.getDato();
+                if (c == null) {
+                    writer.write("<td class='vacia'>VACÍA</td>");
+                } else {
+                    String clase = "comun";
+                    if (c.getRareza().equalsIgnoreCase("Legendaria")) {
+                        clase = "legendaria";
+                    }
+                        writer.write("<td class='" + clase + "'>");
+                        writer.write("<b>" + c.getNombre() + "</b><br>");
+                        writer.write(c.getTipo() + "<br>");
+                        writer.write(c.getRareza());
+                        writer.write("</td>");
+                    }
+                    actual = actual.getDerecha();
+                }
+                writer.write("</tr>");
+                fila = fila.getAbajo();
+            }
+            writer.write("</table>");
+            writer.write("</body>");
+            writer.write("</html>");
+            writer.close();
+            Desktop.getDesktop().browse(new File(nombreArchivo).toURI());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -206,8 +300,10 @@ public void generarReporteVentas(Usuario usuario) {
         jButton2.addActionListener(this::jButton2ActionPerformed);
 
         jButton3.setText("Reporte de album");
+        jButton3.addActionListener(this::jButton3ActionPerformed);
 
         jButton4.setText("Reporte Torneo");
+        jButton4.addActionListener(this::jButton4ActionPerformed);
 
         jLabel3.setText("Seleccione tipo de reporte: ");
 
@@ -268,6 +364,14 @@ public void generarReporteVentas(Usuario usuario) {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         generarReporteVentas(usuarioActual);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        generarReporteTorneos(sisto);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        generarReporteAlbum( usuarioActual);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
