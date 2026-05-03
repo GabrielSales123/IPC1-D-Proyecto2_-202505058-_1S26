@@ -16,6 +16,7 @@ public class Tienda extends javax.swing.JFrame {
     private ControlRecompensas sisr; 
     private Usuario usuarioActual; 
     private MallaOrtogonal tienda; 
+    private MallaOrtogonal aux; 
     private ControlTienda sisa; 
     private NodoMatriz seleccion1 = null; 
     private NodoMatriz seleccion2 = null; 
@@ -29,6 +30,7 @@ public class Tienda extends javax.swing.JFrame {
         this.sisr = sisr; 
         this.usuarioActual = usuarioActual;
         this.sisu = sisu;
+        this.aux = new MallaOrtogonal(4,6);
         sisa.stock();
         initComponents();
         modoCompra(false);
@@ -54,6 +56,58 @@ public class Tienda extends javax.swing.JFrame {
     panelTienda.revalidate();
     panelTienda.repaint();
 }
+    public void renderizarBusqueda(){
+        panelTienda.removeAll();
+        panelTienda.setLayout(new GridLayout(4, 6, 6, 6));
+        NodoMatriz fila = aux.getNodo(0, 0);
+        while (fila != null) {
+            NodoMatriz actual = fila;
+            while (actual != null) {
+                JPanel celda = new JPanel();
+                celda.setLayout(new BorderLayout());
+                if (actual.isResaltada()) {
+                    celda.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
+                } else {
+                    celda.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                }
+                if (actual.dato == null) {
+                    celda.setBackground(Color.LIGHT_GRAY);
+                    celda.setOpaque(true);
+                    JLabel texto = new JLabel("Vacía", SwingConstants.CENTER);
+                    celda.add(texto, BorderLayout.CENTER);
+                } else {
+                    Carta carta = actual.dato;
+                    celda.setBackground(Color.WHITE);
+                    celda.setOpaque(true);
+                    try {
+                        ImageIcon icono = new ImageIcon(getClass().getResource(carta.getImagen()));
+                        Image img = icono.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+                        JLabel lblImagen = new JLabel(new ImageIcon(img));
+                        lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
+                        JLabel nombre = new JLabel(carta.getNombre(), SwingConstants.CENTER);
+                        celda.add(lblImagen, BorderLayout.CENTER);
+                        celda.add(nombre, BorderLayout.SOUTH);
+                    } catch (Exception e) {
+                        JLabel error = new JLabel("Sin img", SwingConstants.CENTER);
+                        celda.add(error, BorderLayout.CENTER);
+                    }
+                    final NodoMatriz nodoActual = actual;
+                    celda.addMouseListener(new java.awt.event.MouseAdapter() {
+                    @Override
+                    public void mouseClicked(java.awt.event.MouseEvent e) {
+                    mostrarCarta(carta);
+                    manejoClick(nodoActual);
+                    }
+                    });
+                }
+                panelTienda.add(celda);
+                actual = actual.derecha;
+            }
+            fila = fila.abajo;
+        }
+        panelTienda.revalidate();
+        panelTienda.repaint();
+    }
 
     public void renderizarTienda() {
         panelTienda.removeAll();
@@ -137,7 +191,7 @@ public class Tienda extends javax.swing.JFrame {
        defBar.setMaximum(200);
        psBar.setMaximum(200);
        tipoBox.setModel(new DefaultComboBoxModel<>(new String[]{
-        "Todos", "Fuego", "Agua", "Planta", "Electrico", "Psiquico", "Normal", "Oscuro", "Acero"
+        "Todos", "Fuego", "Agua", "Planta", "Electrico", "Psiquico", "Normal", "Fantasma", "Hada", "Roca", "Oscuro", "Acero"
         }));
 
         rarezaBox.setModel(new DefaultComboBoxModel<>(new String[]{
@@ -163,7 +217,9 @@ public class Tienda extends javax.swing.JFrame {
                         if (!rareza.equals("Todas") && !carta.getRareza().equals(rareza)) {
                             coincide = false;
                         }
-                    actual.setResaltada(coincide); 
+                    if (coincide == true){
+                    aux.agregarCarta(carta);
+                    }
                 }else {
                 actual.setResaltada(false);
             }
@@ -172,7 +228,7 @@ public class Tienda extends javax.swing.JFrame {
             }
             fila = fila.abajo;
         }
-        renderizarTienda();
+        renderizarBusqueda();
     }
     
     private void manejoClick(NodoMatriz nodo){

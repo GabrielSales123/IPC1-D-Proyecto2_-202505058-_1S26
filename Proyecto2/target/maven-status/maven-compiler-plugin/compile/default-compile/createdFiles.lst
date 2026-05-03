@@ -18,6 +18,7 @@ com\mycompany\gamezonepro\modelo\Album.class
 com\mycompany\gamezonepro\modelo\estructuras\NodoCola.class
 com\mycompany\gamezonepro\modelo\Usuario.class
 com\mycompany\gamezonepro\vista\MenuPrincipal$7.class
+com\mycompany\gamezonepro\vista\Tienda$3.class
 com\mycompany\gamezonepro\vista\Album$2.class
 com\mycompany\gamezonepro\vista\Torneos.class
 com\mycompany\gamezonepro\vista\MenuPrincipal$4.class

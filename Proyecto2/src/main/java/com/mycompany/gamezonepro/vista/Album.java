@@ -127,7 +127,7 @@ public class Album extends javax.swing.JFrame {
        defBar.setMaximum(200);
        psBar.setMaximum(200);
        tipoBox.setModel(new DefaultComboBoxModel<>(new String[]{
-        "Todos", "Fuego", "Agua", "Planta", "Electrico", "Psiquico", "Normal", "Oscuro", "Acero"
+        "Todos", "Fuego", "Agua", "Planta", "Electrico", "Psiquico", "Normal", "Fantasma", "Hada", "Roca", "Oscuro", "Acero"
         }));
 
         rarezaBox.setModel(new DefaultComboBoxModel<>(new String[]{
